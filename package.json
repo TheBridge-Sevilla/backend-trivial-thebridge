@@ -1,20 +1,29 @@
 {
   "name": "backend-trivial",
   "version": "1.0.0",
-  "description": "backend for the bridge's trivial",
-  "main": "index.js",
+
+  "description": "node.js, express y mongodb para crear el backend de trivial",
+  "main": "server.js",
   "scripts": {
-    "test": "test"
+    "test": "echo \"Error: no test specified\" && exit 1"
+
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Ulyssbat/backend-trivial-thebridge.git"
   },
   "keywords": [
+
+    "nodejs",
+    "express",
+    "mongodb",
+    "rest",
+    "api",
     "trivial",
-    "backend"
+    "quiz"
   ],
-  "author": "alumnosthebridgemayo22",
+  "author": "TheBridgeAlumnos",
+
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/Ulyssbat/backend-trivial-thebridge/issues"
@@ -22,8 +31,9 @@
   "homepage": "https://github.com/Ulyssbat/backend-trivial-thebridge#readme",
   "dependencies": {
     "dotenv": "^16.0.1",
+    "cors": "^2.8.5",
     "express": "^4.18.1",
-    "mongoose": "^6.4.0",
-    "node": "^17.7.2"
+    "mongoose": "^6.4.0"
+
   }
 }
