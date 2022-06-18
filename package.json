@@ -21,6 +21,7 @@
   },
   "homepage": "https://github.com/Ulyssbat/backend-trivial-thebridge#readme",
   "dependencies": {
+    "dotenv": "^16.0.1",
     "express": "^4.18.1",
     "mongoose": "^6.4.0",
     "node": "^17.7.2"
