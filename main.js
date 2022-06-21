@@ -12,8 +12,9 @@ async function main() {
 
 const preguntaTest = new Pregunta({
     pregunta: "De que color es el caballo de Santiago",
-    respuesta: "Blanco",
-    category: "test"
+    opciones: ["Blanco", "Azul", "Verde"],
+    categoria: "test",
+    solucion: "blanco"
 })
 
 preguntaTest.save()
