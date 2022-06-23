@@ -8,3 +8,14 @@ main().catch(err => console.log(err));
 async function main() {
     await mongoose.connect(url);
 }
+
+const userSchema = new mongoose.Schema({user: String})
+
+const User = mongoose.model('user', userSchema);
+module.exports = User;
+
+const userOne = new User({
+    user: 'stw'
+})
+
+userOne.save()
