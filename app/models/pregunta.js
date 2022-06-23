@@ -17,8 +17,8 @@ const preguntaSchema = new mongoose.Schema({
 
 const Pregunta = mongoose.model('pregunta', preguntaSchema);
 
-/* Ejemplo de como crear una pregunta nueva
-const preguntaUno = new Pregunta({
+//Ejemplo de como crear una pregunta nueva
+/* const preguntaUno = new Pregunta({
     pregunta: '¿Como se llama mi gato?'
 })
 preguntaUno.save() */
