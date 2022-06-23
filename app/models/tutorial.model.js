@@ -9,7 +9,7 @@ async function main() {
     await mongoose.connect(url);
 }
 const preguntaSchema = new mongoose.Schema({
-    pregunta: String,
+    enunciado: String,
     opciones: [{}],
     categoria: String,
     solucion: {}
