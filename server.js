@@ -16,6 +16,7 @@ app.use(errorHandler);
 
 // api routes
 app.use('/preguntas', require('./preguntas/preguntas.controller'));
+app.use('/partidas', require('./partidas/partidas.controller'));
 
 // set port, listen for requests
 const port = process.env.NODE_ENV === 'DEV' ? (process.env.PORT || 80) : 4000;

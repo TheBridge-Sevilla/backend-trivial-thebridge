@@ -4,5 +4,6 @@ mongoose.connect(process.env.MONGODB_URI);
 mongoose.Promise = global.Promise;
 
 module.exports = {
-    Pregunta: require('../preguntas/preguntas.model')
+    Pregunta: require('../preguntas/preguntas.model'),
+    Partidas: require('../partidas/partidas.model')
 };
