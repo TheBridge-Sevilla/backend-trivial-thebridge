@@ -3,14 +3,14 @@ const Pregunta = db.Pregunta;
 
 module.exports = {
   getAll,
-  create,
+  create
 };
 
-async function getAll() {
+async function getAll () {
   return await Pregunta.find();
 }
 
-async function create(body) {
-  let pregunta = new Pregunta(body);
+async function create (body) {
+  const pregunta = new Pregunta(body);
   return await pregunta.save();
 }

@@ -5,7 +5,7 @@ const schema = new Schema({
   pregunta: String,
   opciones: [String],
   categoria: String,
-  solucion: String,
+  solucion: String
 });
 
 module.exports = mongoose.model("Pregunta", schema);
