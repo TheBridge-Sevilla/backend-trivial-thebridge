@@ -8,9 +8,11 @@ module.exports = {
 
 async function getAll() {
   return await Pregunta.find();
+
 }
 
 async function create(body) {
   let pregunta = new Pregunta(body);
   return await pregunta.save();
-}
+
+};
