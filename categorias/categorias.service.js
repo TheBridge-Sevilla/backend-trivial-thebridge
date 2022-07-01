@@ -1,5 +1,5 @@
 const db = require("../_helpers/db");
-const Partidas = db.Partidas;
+const Categorias = db.Categorias;
 
 module.exports = {
   getAll,
@@ -7,11 +7,10 @@ module.exports = {
 };
 
 async function getAll() {
-  return await Partidas.find();
+  return await Categorias.find();
 }
 
 async function create(body) {
-  let partidas = new Partidas(body);
-  return await partidas.save();
+  let categorias = new Categorias(body);
+  return await categorias.save();
 }
-
