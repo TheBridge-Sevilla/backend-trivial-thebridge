@@ -5,8 +5,7 @@
   "main": "server.js",
   "scripts": {
     "test": "jest --coverage",
-    "lint:js": "eslint ./**/*.js rollup.config.js eleventy/**/*.js --max-warnings 0",
-    "lint": "npm run lint:js"
+    "lint": "eslint ./**/*.js rollup.config.js eleventy/**/*.js --max-warnings 0"
   },
   "repository": {
     "type": "git",
