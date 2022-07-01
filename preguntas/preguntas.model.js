@@ -4,7 +4,7 @@ const Schema = mongoose.Schema;
 const schema = new Schema({
   pregunta: String,
   opciones: [String],
-  categoria: String,
+  categoria: { type: Schema.ObjectId, ref: "Categoria" },
   solucion: String,
 });
 
