@@ -6,7 +6,7 @@
   "scripts": {
     "test": "jest --coverage",
     "lint": "eslint '**/*.{js,jsx}' --quiet",
-    "lint-fix":"npx eslint --fix"
+    "lint-fix":"eslint '**/*.{js,jsx}' --fix"
   },
   "repository": {
     "type": "git",
