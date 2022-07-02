@@ -5,7 +5,7 @@
   "main": "server.js",
   "scripts": {
     "test": "jest --coverage",
-    "lint": "npx eslint *", 
+    "lint": "eslint '**/*.{js,jsx}' --quiet",
     "lint-fix":"npx eslint --fix"
   },
   "repository": {
