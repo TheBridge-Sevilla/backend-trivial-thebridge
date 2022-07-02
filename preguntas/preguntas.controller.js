@@ -5,7 +5,7 @@ const preguntaService = require("./preguntas.service");
 // routes
 router.get("/", getAll);
 router.post("/", create);
-router.post("/delete", deleteOne)
+router.delete("/", deleteOne)
 
 module.exports = router;
 

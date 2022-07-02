@@ -39,5 +39,5 @@ async function create (body) {
 
 async function deleteOne (body) {
   console.log(body)
-  return await Pregunta.deleteOne({ id: body.id })
+  return await Pregunta.deleteOne({ _id: body.id })
 }
