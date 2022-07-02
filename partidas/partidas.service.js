@@ -3,15 +3,14 @@ const Partidas = db.Partidas;
 
 module.exports = {
   getAll,
-  create,
+  create
 };
 
-async function getAll() {
+async function getAll () {
   return await Partidas.find();
 }
 
-async function create(body) {
-  let partidas = new Partidas(body);
+async function create (body) {
+  const partidas = new Partidas(body);
   return await partidas.save();
 }
-

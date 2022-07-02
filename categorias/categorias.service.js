@@ -3,14 +3,14 @@ const Categorias = db.Categorias;
 
 module.exports = {
   getAll,
-  create,
+  create
 };
 
-async function getAll() {
+async function getAll () {
   return await Categorias.find();
 }
 
-async function create(body) {
-  let categorias = new Categorias(body);
+async function create (body) {
+  const categorias = new Categorias(body);
   return await categorias.save();
 }
