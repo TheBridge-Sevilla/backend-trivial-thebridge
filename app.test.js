@@ -23,9 +23,3 @@ describe("/partidas", () => {
     })
 })
 
-describe("/partidas", () => {
-    it("should return a response", async () => {
-        const response = await request.get("/partidas")
-        expect(response.status).toBe(200)
-    })
-})
