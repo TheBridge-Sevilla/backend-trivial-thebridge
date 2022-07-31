@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const categoriasService = require('./categorias.service')
+const jugadorService = require('./jugador.service')
 
 // routes
 router.get('/', getAll);
@@ -11,7 +11,7 @@ module.exports = router;
 
 function getAll(req, res, next) {
     jugadorService.getAll()
-        .then(categorias => res.json(categorias))
+        .then(jugador => res.json(jugador))
         .catch(err => next(err));
 }
 
@@ -19,7 +19,7 @@ function getAll(req, res, next) {
 function create(req, res, next) {
     console.log(req.body)
 
-    categoriasService.create(req.body)
-        .then(categorias => res.json(categorias))
+    jugadorService.create(req.body)
+        .then(jugador => res.json(jugador))
         .catch(err => next(err));
 }
