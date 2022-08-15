@@ -10,7 +10,7 @@ module.exports = router;
 
 
 function getAll(req, res, next) {
-    categoriaService.getAll()
+    categoriasService.getAll()
         .then(categorias => res.json(categorias))
         .catch(err => next(err));
 }
