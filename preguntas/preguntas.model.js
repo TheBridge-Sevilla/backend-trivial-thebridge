@@ -2,8 +2,8 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 const schema = new Schema({
-  pregunta: String,
-  opciones: [String],
+  pregunta: {es: String, en: String},
+  opciones: {es: [String], en: [String]},
   categoria: { type: Schema.ObjectId, ref: "Categoria" },
   solucion: String,
 });
