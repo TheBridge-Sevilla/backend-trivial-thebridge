@@ -19,5 +19,6 @@ async function create (body) {
 
 async function getPreguntasByCategory (body) {
   const categoria = await Categoria.findOne({ nombre: body.categoria })
+  console.log('pregunta-categoria', categoria)
   return await Pregunta.find({ categoria }).limit(5)
 }
