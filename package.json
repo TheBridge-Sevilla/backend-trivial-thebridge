@@ -32,7 +32,8 @@
     "express": "^4.18.1",
     "mongoose": "^6.4.0",
     "node-fetch": "^3.2.10",
-    "nodemon": "^2.0.19"
+    "nodemon": "^2.0.19",
+    "translate-google": "^1.5.0"
   },
   "devDependencies": {
     "eslint": "^8.20.0",
