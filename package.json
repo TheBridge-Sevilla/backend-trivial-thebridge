@@ -5,7 +5,7 @@
   "main": "server.js",
   "scripts": {
     "test": "jest --coverage --forceExit",
-    "eslint": "eslint . --ignore-pattern app.test.js"
+    "lint": "eslint --ext .js"
   },
   "repository": {
     "type": "git",

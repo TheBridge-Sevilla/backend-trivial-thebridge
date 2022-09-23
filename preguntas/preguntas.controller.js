@@ -16,7 +16,6 @@ function getAll (req, res, next) {
 }
 
 function getPreguntasByCategory (req, res, next) {
-  console.log('get-pregunta', req.body)
   preguntaService.getPreguntasByCategory(req.body)
     .then(preguntas => res.json(preguntas))
     .catch(err => next(err))

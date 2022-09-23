@@ -1,5 +1,5 @@
-const mongoose = require('mongoose')
-const Schema = mongoose.Schema
+const mongoose = require("mongoose");
+const Schema = mongoose.Schema;
 
 const schema = new Schema({
   pregunta: { es: String, en: String },
@@ -8,4 +8,4 @@ const schema = new Schema({
   solucion: Number
 })
 
-module.exports = mongoose.model('Pregunta', schema)
+module.exports = mongoose.model("Pregunta", schema);
