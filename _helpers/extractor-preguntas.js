@@ -3,16 +3,15 @@ const translate = require('translate-google')
 const Categoria = db.Categorias;
 
 // const Pregunta = db.Pregunta;
-
+let categoriaID = {}
 Categoria.find().then(categoriaMongo => {
-  let categoriaID = {}
+  
   for (categoriaLista of categoriaMongo) {
     categoriaID[categoriaLista.nombre.en] = categoriaLista._id
-  } console.log(categoriaID)
+  }
 }
-)
-
-const fetch = (url) =>
+).then(()=> {
+  const fetch = (url) =>
   import("node-fetch").then(({ default: fetch }) => fetch(url));
 fetch(
   "https://opentdb.com/api.php?amount=50&type=multiple"
@@ -25,7 +24,7 @@ fetch(
       let obtenerSolucion = Math.floor(Math.random() * 4)
       let obtenerOpciones = res.incorrect_answers.splice(obtenerSolucion, (res.incorrect_answers.length + 1), res.correct_answer)
       let todasOpciones = res.incorrect_answers.concat(obtenerOpciones)
-      //let idCategoria = ObtenerCategoriaID(res.category)
+      let idCategoria = categoriaID[res.category]
 
 
       translate({
@@ -35,11 +34,11 @@ fetch(
         let PreguntaTransformada = {
           pregunta: { es: traduccion.question, en: res.question },
           opciones: { es: traduccion.options, en: todasOpciones },
-          categoria: res.category,
+          categoria: idCategoria,
           solucion: obtenerSolucion
         }
 
-        //console.log(PreguntaTransformada)
+        console.log(PreguntaTransformada)
 
         /*         let PreguntaInsertar = new Pregunta(PreguntaTransformada)
                 PreguntaInsertar.save() */
@@ -48,3 +47,5 @@ fetch(
       })
     })
   )
+})
+
