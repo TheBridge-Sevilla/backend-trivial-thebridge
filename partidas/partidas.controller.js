@@ -5,6 +5,7 @@ const partidasService = require('./partidas.service')
 // routes
 router.get('/', getAll);
 router.post('/', create);
+router.post('/categoria',getPartidasByCategory)
 
 module.exports = router;
 
