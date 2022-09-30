@@ -5,6 +5,25 @@ const errorHandler = require('./_helpers/error-handler');
 require('dotenv').config()
 
 const app = express();
+const swaggerJSDoc = require('swagger-jsdoc');
+const swaggerUi = require('swagger-ui-express');
+
+const swaggerDefinition = {
+  openapi: '3.0.0',
+  info: {
+    title: 'Express API for JSONPlaceholder',
+    version: '1.0.0',
+  },
+};
+
+const options = {
+  swaggerDefinition,
+  // Paths to files containing OpenAPI definitions
+  apis: ['./partidas/*.js','./preguntas/*.js'],
+};
+
+
+const swaggerSpec = swaggerJSDoc(options);
 
 //BodyParser + Cors
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -13,6 +32,9 @@ app.use(cors());
 
 // global error handler
 app.use(errorHandler);
+
+//swagger
+app.use('/docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
 // api routes
 app.use('/preguntas', require('./preguntas/preguntas.controller'));
