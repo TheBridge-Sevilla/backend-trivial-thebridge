@@ -1,5 +1,6 @@
 const db = require("../_helpers/db");
 const Partidas = db.Partidas;
+const Categorias = db.Categorias
 
 module.exports = {
   getAll,
@@ -16,7 +17,7 @@ async function create(body) {
   return await partidas.save();
 }
 async function getPartidasByCategory(body) {
-  const categoria = await Categoria.findOne({ nombre: body.categoria });
+  const categoria = await Categorias.findOne({ nombre: {'es':body.categoria}});
   return await Partidas.find({ categoria }).populate("categoria").limit(5);
 }
 

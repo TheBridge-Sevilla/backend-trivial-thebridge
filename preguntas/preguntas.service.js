@@ -2,6 +2,8 @@ const db = require("../_helpers/db");
 const Pregunta = db.Pregunta;
 const Categoria = db.Categorias;
 
+const ObjectId = require('mongodb').ObjectId;
+
 module.exports = {
   getAll,
   create,
@@ -18,6 +20,13 @@ async function create(body) {
 }
 
 async function getPreguntasByCategory (body) {
-  const categoria = await Categoria.findOne({ nombre: body.categoria })
+  console.log('body',body.id)
+  const categoria = await Categoria.findById(body.id)
+  // console.log(categoria)
+
+  // const categoria = await Categoria.findById(body.id)
+  // return await Pregunta.find({ categoria }).limit(5)
+  console.log(categoria)
+
   return await Pregunta.find({ categoria }).limit(5)
 }
