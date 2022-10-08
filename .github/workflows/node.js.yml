@@ -17,7 +17,6 @@ jobs:
       matrix:
         node-version: [12.x, 14.x, 16.x]
         # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
-    environment: production
     steps:
     - uses: actions/checkout@v3
     - name: Use Node.js ${{ matrix.node-version }}
@@ -30,3 +29,5 @@ jobs:
     - run: npm run build --if-present
     - run: npm run lint
     - run: npm run test 
+    env:
+        MONGODB_URI: ${{ secrets.MONGODB_URI }}
