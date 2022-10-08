@@ -20,8 +20,6 @@ async function create(body) {
 }
 
 async function getPreguntasByCategory (body) {
-
   const categoria = await Categoria.findById(body.id)
-
   return await Pregunta.find({ categoria })
 }

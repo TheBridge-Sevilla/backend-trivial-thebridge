@@ -1,10 +1,10 @@
 const db = require("../_helpers/db");
+
 const translate = require("translate-google");
 const Categoria = db.Categorias;
 const Pregunta = db.Pregunta;
 
 let categoriaID = {};
-
 Categoria.find()
   .then((categoriaMongo) => {
     for (categoriaLista of categoriaMongo) {
@@ -25,6 +25,8 @@ Categoria.find()
             res.incorrect_answers.length + 1,
             res.correct_answer
           );
+
+          
           let todasOpciones = res.incorrect_answers.concat(obtenerOpciones);
           let idCategoria = categoriaID[res.category];
 
@@ -37,16 +39,19 @@ Categoria.find()
           )
             .then((traduccion) => {
               let PreguntaTransformada = {
-                pregunta: { es: traduccion.question, en: res.question },
-                opciones: { es: traduccion.options, en: todasOpciones },
+                pregunta: { es: traduccion.question, en: res.question.replaceAll('&quot;','"').replaceAll('&#039;',"'").replaceAll('& quot;','"') },
+                opciones: { es: traduccion.options, en: todasOpciones.map((opcion)=> opcion.replaceAll('&quot;','"').replaceAll('&#039;',"'")).replaceAll('& quot;','"') },
                 categoria: idCategoria,
                 solucion: obtenerSolucion,
               };
-
-              // console.log(PreguntaTransformada)
-
-              let PreguntaInsertar = new Pregunta(PreguntaTransformada);
-              PreguntaInsertar.save();
+              comprobarPregunta(PreguntaTransformada.pregunta).then(
+                (duplicada) => {
+                  if (!duplicada) {
+                    let PreguntaInsertar = new Pregunta(PreguntaTransformada);
+                    PreguntaInsertar.save();
+                  }
+                }
+              );
             })
             .catch((err) => {
               console.error(err);
@@ -54,3 +59,9 @@ Categoria.find()
         })
       );
   });
+
+async function comprobarPregunta(tituloPregunta) {
+  let preguntaRepetida = await Pregunta.find({ pregunta: tituloPregunta });
+  // Si es true la pregunta está repetida
+  return preguntaRepetida.length > 0 ? true : false;
+}
