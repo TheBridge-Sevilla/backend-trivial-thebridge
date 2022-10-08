@@ -10,8 +10,7 @@ on:
     branches: [ "main", "dev" ]
 
 env:
-  MONGODB_URI: mongodb+srv://clasethebridge22:mLgHGXeGF84nWNDu@trivialthebridge.od1ucz1.mongodb.net/trivial-test-encoding-2?retryWrites=true&w=majority
-
+  MONGODB_URI: ${{ secrets.MONGODB_URI }}
 
 jobs:
   build:
