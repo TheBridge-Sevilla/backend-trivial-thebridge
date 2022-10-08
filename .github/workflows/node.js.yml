@@ -8,11 +8,9 @@ on:
     branches: [ "main", "dev" ]
   pull_request:
     branches: [ "main", "dev" ]
-env:
-  MONGODB_URI: ${{secrets.MONGODB_URI}}
+
 jobs:
   build:
-
     runs-on: ubuntu-latest
 
     strategy:
@@ -27,6 +25,9 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
+    - run: | 
+        touch .env
+        echo MONGODB_URI=${{ secrets.MONGODB_URI }} >> .env
     - run: echo MONGODB_URI
     - run: npm ci
     - run: npm run build --if-present
