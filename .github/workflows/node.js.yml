@@ -27,10 +27,7 @@ jobs:
       env: # Or as an environment variable
         super_secret: ${{ secrets.SuperSecret }}
       uses: actions/setup-node@v3
-
-
-
-    - run: echo ${{ MONGODB_URI }}
+      
     - run: npm ci
     - run: npm run build --if-present
     - run: npm run lint
