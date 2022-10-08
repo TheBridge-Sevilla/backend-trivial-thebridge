@@ -8,7 +8,8 @@ on:
     branches: [ "main", "dev" ]
   pull_request:
     branches: [ "main", "dev" ]
-
+env:
+  MONGODB_URI: ${{secrets.MONGODB_URI}}
 jobs:
   build:
 
@@ -26,6 +27,7 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
+    - run: echo MONGODB_URI
     - run: npm ci
     - run: npm run build --if-present
     - run: npm run lint
