@@ -1,4 +1,5 @@
 const db = require("../_helpers/db");
+
 const translate = require("translate-google");
 const Categoria = db.Categorias;
 const Pregunta = db.Pregunta;
@@ -24,6 +25,8 @@ Categoria.find()
             res.incorrect_answers.length + 1,
             res.correct_answer
           );
+
+          
           let todasOpciones = res.incorrect_answers.concat(obtenerOpciones);
           let idCategoria = categoriaID[res.category];
 
@@ -36,14 +39,14 @@ Categoria.find()
           )
             .then((traduccion) => {
               let PreguntaTransformada = {
-                pregunta: { es: traduccion.question, en: res.question },
-                opciones: { es: traduccion.options, en: todasOpciones },
+                pregunta: { es: traduccion.question, en: res.question.replaceAll('&quot;','"').replaceAll('&#039;',"'").replaceAll('& quot;','"') },
+                opciones: { es: traduccion.options, en: todasOpciones.map((opcion)=> opcion.replaceAll('&quot;','"').replaceAll('&#039;',"'")).replaceAll('& quot;','"') },
                 categoria: idCategoria,
                 solucion: obtenerSolucion,
               };
               comprobarPregunta(PreguntaTransformada.pregunta).then(
                 (duplicada) => {
-                  if (duplicada == false) {
+                  if (!duplicada) {
                     let PreguntaInsertar = new Pregunta(PreguntaTransformada);
                     PreguntaInsertar.save();
                   }
