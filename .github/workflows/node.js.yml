@@ -9,6 +9,10 @@ on:
   pull_request:
     branches: [ "main", "dev" ]
 
+env:
+  MONGODB_URI: mongodb+srv://clasethebridge22:mLgHGXeGF84nWNDu@trivialthebridge.od1ucz1.mongodb.net/trivial-test-encoding-2?retryWrites=true&w=majority
+
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -21,11 +25,8 @@ jobs:
     - uses: actions/checkout@v3
     - name: Use Node.js ${{ matrix.node-version }}
       with: 
-        super_secret: ${{ secrets.SuperSecret }}
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
-      env: # Or as an environment variable
-        super_secret: ${{ secrets.SuperSecret }}
       uses: actions/setup-node@v3
       
     - run: npm ci
