@@ -9,8 +9,6 @@ on:
   pull_request:
     branches: [ "main", "dev" ]
 
-env: 
-  MONGODB_URI: ${{secrets.MONGODB_URI}}
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -26,6 +24,9 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
+      env:
+        MONGODB_URI: "mongodb+srv://clasethebridge22:mLgHGXeGF84nWNDu@trivialthebridge.od1ucz1.mongodb.net/trivial-test-david?retryWrites=true&w=majority"
+
     - run: npm ci
     - run: npm run build --if-present
     - run: npm run lint
