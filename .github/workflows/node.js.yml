@@ -3,9 +3,6 @@
 
 name: Node.js CI
 
-env:
-  DAY_OF_WEEK: Monday
-
 on:
   push:
     branches: [ "main", "dev" ]
@@ -14,6 +11,8 @@ on:
 
 jobs:
   build:
+    env:
+      DAY_OF_WEEK: Monday
 
     runs-on: ubuntu-latest
 
