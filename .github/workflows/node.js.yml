@@ -12,7 +12,7 @@ on:
 jobs:
   build:
     env:
-      DAY_OF_WEEK: Monday
+      DAY_OF_WEEK: env.TEST
 
     runs-on: ubuntu-latest
 
