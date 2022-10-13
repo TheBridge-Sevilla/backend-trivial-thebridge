@@ -12,7 +12,7 @@ on:
 jobs:
   build:
     env:
-      DAY_OF_WEEK: env.TEST
+      DAY_OF_WEEK: ${{ secrets.TEST }}
 
     runs-on: ubuntu-latest
 
