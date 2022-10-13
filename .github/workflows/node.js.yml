@@ -30,7 +30,6 @@ jobs:
       env:
         DEBUG_PASSWORD: ${{ secrets.MONGODB_URI }}
         DEBUG_SECRET_KEY: ${{ TEST }}
-        TEST: TESTando
     - run:  echo $DEBUG_SECRET_KEY
     - run: echo  $TEST
         
