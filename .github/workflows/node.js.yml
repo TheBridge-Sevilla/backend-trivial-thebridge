@@ -11,11 +11,7 @@ on:
 
 jobs:
   build:
-    env:
-      DAY_OF_WEEK: ${{ secrets.TEST }}
-
     runs-on: ubuntu-latest
-
     strategy:
       matrix:
         node-version: [12.x, 14.x, 16.x]
@@ -28,13 +24,8 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
-
-    - name: Step 1 - Echo out a GitHub Actions Secret to the logs
-      run: |
-        echo "The GitHub Action Secret will be masked:  "
-        echo ${{ secrets.TEST }}
-        echo "Trick to echo GitHub Actions Secret:  "
-        echo ${{secrets.TEST}} | sed 's/./& /g' 
+      env:
+          MONGODB_URI: ${{ secrets.MONGODB_URI }}
     - run: npm ci
     - run: npm run build --if-present
     - run: npm run lint
