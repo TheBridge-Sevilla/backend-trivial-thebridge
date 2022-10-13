@@ -3,6 +3,9 @@
 
 name: Node.js CI
 
+env:
+  DAY_OF_WEEK: Monday
+
 on:
   push:
     branches: [ "main", "dev" ]
@@ -26,9 +29,7 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
-    - run: |
-        touch .env
-        echo MONGODB_URI=${{ secrets.MONGODB_URI }} >> .env
+    - run: "Today is $DAY_OF_WEEK!"
     - run: npm ci
     - run: npm run build --if-present
     - run: npm run lint
