@@ -20,6 +20,15 @@ jobs:
     - run: npm ci
     - run: npm run build --if-present
     - run: npm run lint
+    - run: |
+          if [ "$MONGODB_URI" == "candy" ]
+          then
+            echo "Got secret"
+          fi
+          if [ "$PEAR_SECURE" == "pear" ]
+          then
+            echo "Got secret something else"
+          fi
     - run: npm run test 
     env: 
       MONGODB_URI: ${{ secrets.MONGODB_URI }}
