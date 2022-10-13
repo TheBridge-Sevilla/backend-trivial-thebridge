@@ -1,19 +1,33 @@
-name: Secrets example
-on: push
+# This workflow will do a clean installation of node dependencies, cache/restore them, build the source code and run tests across different versions of node
+# For more information see: https://help.github.com/actions/language-and-framework-guides/using-nodejs-with-github-actions
+
+name: Node.js CI
+
+on:
+  push:
+    branches: [ "main", "dev" ]
+  pull_request:
+    branches: [ "main", "dev" ]
+
 jobs:
-  job1:
+  build:
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [12.x, 14.x, 16.x]
+        # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
+
     steps:
-      - name: Test
-        run: |
-          if [ "$CANDY_SECURE" == "candy" ]
-          then
-            echo "Got secret"
-          fi
-          if [ "$PEAR_SECURE" == "pear" ]
-          then
-            echo "Got secret something else"
-          fi
-        env: 
-          CANDY_SECURE: ${{ secrets.CANY_APPLE_SECURE }}
-          PEAR_SECURE: ${{ secrets.PEAR_MAGIC_SECURE }}
+    - uses: actions/checkout@v3
+    - name: Use Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v3
+      with:
+        node-version: ${{ matrix.node-version }}
+        cache: 'npm'
+      env: 
+        MONGODB_URI: ${{ secrets.MONGODB_URI }}
+    - run: npm ci
+    - run: npm run build --if-present
+    - run: npm run lint
+    - run: npm run test 
+
