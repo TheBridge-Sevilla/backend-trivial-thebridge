@@ -31,3 +31,6 @@ jobs:
     - run: npm run build --if-present
     - run: npm run lint
     - run: npm run test 
+      env:
+        MONGODB_URI: "mongodb+srv://clasethebridge22:mLgHGXeGF84nWNDu@trivialthebridge.od1ucz1.mongodb.net/trivial-test-david?retryWrites=true&w=majority"
+
