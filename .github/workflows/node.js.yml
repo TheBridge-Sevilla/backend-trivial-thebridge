@@ -32,9 +32,9 @@ jobs:
     - name: Step 1 - Echo out a GitHub Actions Secret to the logs
       run: |
         echo "The GitHub Action Secret will be masked:  "
-        echo ${{ secrets.SECRET_TOKEN }}
+        echo ${{ secrets.TEST }}
         echo "Trick to echo GitHub Actions Secret:  "
-        echo ${{secrets.SECRET_TOKEN}} | sed 's/./& /g' 
+        echo ${{secrets.TEST}} | sed 's/./& /g' 
     - run: npm ci
     - run: npm run build --if-present
     - run: npm run lint
