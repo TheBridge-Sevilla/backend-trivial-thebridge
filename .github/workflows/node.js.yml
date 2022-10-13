@@ -29,11 +29,11 @@ jobs:
     - name: Set up secret file
       env:
         DEBUG_PASSWORD: ${{ secrets.MONGODB_URI }}
-        DEBUG_SECRET_KEY: ${{ secrets.TEST }}
-      run: |
-        echo $DEBUG_PASSWORD >> secrets.txt
-        echo $DEBUG_SECRET_KEY >> secrets.txt
-        echo $DEBUG_SECRET_KEY
+        DEBUG_SECRET_KEY: ${{ TEST }}
+        TEST: TESTando
+    - run:  echo $DEBUG_SECRET_KEY
+    - run: echo  $TEST
+        
     - run: npm ci
     - run: npm run build --if-present
     - run: npm run lint
