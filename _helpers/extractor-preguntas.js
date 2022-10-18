@@ -4,7 +4,7 @@ const Pregunta = db.Pregunta;
 const deepl = require("deepl-node");
 var he = require("he");
 
-const authKey = "d91fc0c5-b4ca-cabb-6cfd-b5f139d00d13:fx"; // Replace with your key
+const authKey = process.env.DEEPL_API_KEY;
 const translator = new deepl.Translator(authKey);
 
 let categoriaID = {};
