@@ -28,6 +28,8 @@ Categoria.find()
             res.incorrect_answers.length + 1,
             res.correct_answer
           );
+
+          
           let todasOpciones = res.incorrect_answers.concat(obtenerOpciones);
           let idCategoria = categoriaID[res.category];
           let preguntasEditadas = he.decode(res.question);
@@ -59,7 +61,7 @@ Categoria.find()
             .then(() => {
               comprobarPregunta(PreguntaTransformada.pregunta).then(
                 (duplicada) => {
-                  if (duplicada == false) {
+                  if (!duplicada) {
                     let PreguntaInsertar = new Pregunta(PreguntaTransformada);
                     PreguntaInsertar.save();
                   }
