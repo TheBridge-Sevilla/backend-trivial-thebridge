@@ -29,7 +29,6 @@ Categoria.find()
             res.correct_answer
           );
 
-          
           let todasOpciones = res.incorrect_answers.concat(obtenerOpciones);
           let idCategoria = categoriaID[res.category];
           let preguntasEditadas = he.decode(res.question);
@@ -43,20 +42,20 @@ Categoria.find()
             categoria: idCategoria,
             solucion: obtenerSolucion,
           };
+
           const preguntaTraducida = translator
             .translateText(preguntasEditadas, null, "es")
             .then((resultado) => {
               let traduccion = resultado.text;
               PreguntaTransformada.pregunta.es = traduccion;
-            })
-            .then(() => {
-              const opcionesTraducidas = translator
-                .translateText(opcionesEditadas, null, "es")
-                .then((res) => {
-                  PreguntaTransformada.opciones.es = res.map(
-                    (opcion) => opcion.text
-                  );
-                });
+            });
+
+          const opcionesTraducidas = translator
+            .translateText(opcionesEditadas, null, "es")
+            .then((res) => {
+              PreguntaTransformada.opciones.es = res.map(
+                (opcion) => opcion.text
+              );
             })
             .then(() => {
               comprobarPregunta(PreguntaTransformada.pregunta).then(
