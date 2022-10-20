@@ -43,13 +43,6 @@ Categoria.find()
             solucion: obtenerSolucion,
           };
 
-          const preguntaTraducida = translator
-            .translateText(preguntasEditadas, null, "es")
-            .then((resultado) => {
-              let traduccion = resultado.text;
-              PreguntaTransformada.pregunta.es = traduccion;
-            });
-
           const opcionesTraducidas = translator
             .translateText(opcionesEditadas, null, "es")
             .then((res) => {
@@ -58,14 +51,24 @@ Categoria.find()
               );
             })
             .then(() => {
-              comprobarPregunta(PreguntaTransformada.pregunta).then(
-                (duplicada) => {
-                  if (!duplicada) {
-                    let PreguntaInsertar = new Pregunta(PreguntaTransformada);
-                    PreguntaInsertar.save();
-                  }
-                }
-              );
+              const preguntaTraducida = translator
+                .translateText(preguntasEditadas, null, "es")
+                .then((resultado) => {
+                  let traduccion = resultado.text;
+                  PreguntaTransformada.pregunta.es = traduccion;
+                })
+                .then(() => {
+                  comprobarPregunta(PreguntaTransformada.pregunta).then(
+                    (duplicada) => {
+                      if (!duplicada) {
+                        let PreguntaInsertar = new Pregunta(
+                          PreguntaTransformada
+                        );
+                        PreguntaInsertar.save();
+                      }
+                    }
+                  );
+                });
             });
         })
       );
