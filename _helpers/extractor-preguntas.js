@@ -29,7 +29,6 @@ Categoria.find()
             res.correct_answer
           );
 
-          
           let todasOpciones = res.incorrect_answers.concat(obtenerOpciones);
           let idCategoria = categoriaID[res.category];
           let preguntasEditadas = he.decode(res.question);
@@ -43,30 +42,33 @@ Categoria.find()
             categoria: idCategoria,
             solucion: obtenerSolucion,
           };
-          const preguntaTraducida = translator
-            .translateText(preguntasEditadas, null, "es")
-            .then((resultado) => {
-              let traduccion = resultado.text;
-              PreguntaTransformada.pregunta.es = traduccion;
+
+          const opcionesTraducidas = translator
+            .translateText(opcionesEditadas, null, "es")
+            .then((res) => {
+              PreguntaTransformada.opciones.es = res.map(
+                (opcion) => opcion.text
+              );
             })
             .then(() => {
-              const opcionesTraducidas = translator
-                .translateText(opcionesEditadas, null, "es")
-                .then((res) => {
-                  PreguntaTransformada.opciones.es = res.map(
-                    (opcion) => opcion.text
+              const preguntaTraducida = translator
+                .translateText(preguntasEditadas, null, "es")
+                .then((resultado) => {
+                  let traduccion = resultado.text;
+                  PreguntaTransformada.pregunta.es = traduccion;
+                })
+                .then(() => {
+                  comprobarPregunta(PreguntaTransformada.pregunta).then(
+                    (duplicada) => {
+                      if (!duplicada) {
+                        let PreguntaInsertar = new Pregunta(
+                          PreguntaTransformada
+                        );
+                        PreguntaInsertar.save();
+                      }
+                    }
                   );
                 });
-            })
-            .then(() => {
-              comprobarPregunta(PreguntaTransformada.pregunta).then(
-                (duplicada) => {
-                  if (!duplicada) {
-                    let PreguntaInsertar = new Pregunta(PreguntaTransformada);
-                    PreguntaInsertar.save();
-                  }
-                }
-              );
             });
         })
       );
