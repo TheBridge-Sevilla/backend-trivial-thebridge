@@ -16,8 +16,10 @@ async function create(body) {
   const partidas = new Partidas(body);
   return await partidas.save();
 }
+
 async function getPartidasByCategory(body) {
-  const categoria = await Categorias.findOne({ nombre: {'es':body.categoria}});
-  return await Partidas.find({ categoria }).populate("categoria").limit(5);
+  const categoriaID = await Categorias.findById(body.id)
+  console.log("categoriaID",categoriaID)
+  return await Partidas.find({ categoria: categoriaID }).populate('categoria').limit(5).sort({puntuacion: -1});
 }
 
