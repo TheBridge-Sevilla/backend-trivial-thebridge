@@ -1,8 +1,11 @@
 const db = require("../_helpers/db");
-
-const translate = require("translate-google");
 const Categoria = db.Categorias;
 const Pregunta = db.Pregunta;
+const deepl = require("deepl-node");
+var he = require("he");
+
+const authKey = process.env.DEEPL_API_KEY;
+const translator = new deepl.Translator(authKey);
 
 let categoriaID = {};
 Categoria.find()
@@ -26,35 +29,46 @@ Categoria.find()
             res.correct_answer
           );
 
-          
           let todasOpciones = res.incorrect_answers.concat(obtenerOpciones);
           let idCategoria = categoriaID[res.category];
+          let preguntasEditadas = he.decode(res.question);
+          let opcionesEditadas = todasOpciones.map((opcion) =>
+            he.decode(opcion)
+          );
 
-          translate(
-            {
-              question: res.question,
-              options: todasOpciones,
-            },
-            { to: "es" }
-          )
-            .then((traduccion) => {
-              let PreguntaTransformada = {
-                pregunta: { es: traduccion.question, en: res.question.replaceAll('&quot;','"').replaceAll('&#039;',"'").replaceAll('& quot;','"') },
-                opciones: { es: traduccion.options, en: todasOpciones.map((opcion)=> opcion.replaceAll('&quot;','"').replaceAll('&#039;',"'")).replaceAll('& quot;','"') },
-                categoria: idCategoria,
-                solucion: obtenerSolucion,
-              };
-              comprobarPregunta(PreguntaTransformada.pregunta).then(
-                (duplicada) => {
-                  if (!duplicada) {
-                    let PreguntaInsertar = new Pregunta(PreguntaTransformada);
-                    PreguntaInsertar.save();
-                  }
-                }
+          let PreguntaTransformada = {
+            pregunta: { es: undefined, en: preguntasEditadas },
+            opciones: { es: undefined, en: opcionesEditadas },
+            categoria: idCategoria,
+            solucion: obtenerSolucion,
+          };
+
+          const opcionesTraducidas = translator
+            .translateText(opcionesEditadas, null, "es")
+            .then((res) => {
+              PreguntaTransformada.opciones.es = res.map(
+                (opcion) => opcion.text
               );
             })
-            .catch((err) => {
-              console.error(err);
+            .then(() => {
+              const preguntaTraducida = translator
+                .translateText(preguntasEditadas, null, "es")
+                .then((resultado) => {
+                  let traduccion = resultado.text;
+                  PreguntaTransformada.pregunta.es = traduccion;
+                })
+                .then(() => {
+                  comprobarPregunta(PreguntaTransformada.pregunta).then(
+                    (duplicada) => {
+                      if (!duplicada) {
+                        let PreguntaInsertar = new Pregunta(
+                          PreguntaTransformada
+                        );
+                        PreguntaInsertar.save();
+                      }
+                    }
+                  );
+                });
             });
         })
       );
