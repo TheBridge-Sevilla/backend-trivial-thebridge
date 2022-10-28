@@ -5,13 +5,15 @@ const errorHandler = require('./_helpers/error-handler');
 require('dotenv').config()
 
 const app = express();
+
+//Swagger configuration: https://dev.to/kabartolo/how-to-document-an-express-api-with-swagger-ui-and-jsdoc-50do
 const swaggerJSDoc = require('swagger-jsdoc');
 const swaggerUi = require('swagger-ui-express');
 
 const swaggerDefinition = {
   openapi: '3.0.0',
   info: {
-    title: 'Express API for JSONPlaceholder',
+    title: 'Express API para nuestro Trivial Fragen',
     version: '1.0.0',
   },
 };
