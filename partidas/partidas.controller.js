@@ -41,7 +41,73 @@ const partidasService = require("./partidas.service");
  *                          
  */
 router.get("/", getAll);
+//Edu
 router.post("/", create);
+/**
+ * @swagger
+ * /partidas/categoria:
+ *   post:
+ *     tags:
+ *     - partidas
+ *     summary: Devuelve una lista de partidas clasificadas por categorias.
+ *     operationId: categoria._id
+ *     requestBody:
+ *       description: Crea un nuevo almacen de partidas
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               _id:
+ *                 type: string
+ *                 description: El ID de la categoria.
+ *                 example: 635102dd9ef0f77c5801cfb4
+ *       required: true
+ *     responses:
+ *       200:
+ *         description: Successful operation
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 type: object
+ *                 properties:
+ *                   _id:
+ *                     type: string
+ *                     description: El ID de la partida.
+ *                     example: 635102dd9ef0f77c5801cfb4
+ *                   nombre:
+ *                     type: string
+ *                     description: El nombre del usuario.
+ *                     example: Kenny Miller
+ *                   categoria:
+ *                     type: object
+ *                     properties:
+ *                       _id: 
+ *                         type: string
+ *                         description: El ID de la categoría a la que hace referencia.
+ *                         example: 634ef53d64362d730580cd9c
+ *                       nombre:
+ *                         type: object
+ *                         properties:
+ *                           es:
+ *                             type: string
+ *                             description: Nombre categoría en Español
+ *                             example: Deportes
+ *                           en:
+ *                             type: string
+ *                             description: Nombre categoría en Inglés
+ *                             example: Sports
+ *                   puntuacion:
+ *                     type: integer
+ *                     description: La puntuación alcanzada por el usuario.
+ *                     example: 10
+ *                   fecha:
+ *                     type: date
+ *                     description: Fecha en que se jugó la partida.
+ *                     example: 2022-10-20T08:33:17.400Z                          
+ */
 router.post("/categoria", getPartidasByCategory);
 
 module.exports = router;
