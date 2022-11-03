@@ -43,6 +43,38 @@ const partidasService = require("./partidas.service");
 router.get("/", getAll);
 router.post("/", create);
 router.post("/categoria", getPartidasByCategory);
+/**
+ * @swagger
+ * /partidas/categoria:
+ *   post:
+ *     tags:
+ *      - partidas 
+ *     summary: Devuelve una lista de preguntas filtrada por la categoria seleccionada.
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               pregunta:
+ *                 type: string
+ *                 description: La pregunta del trivial de la categoria elegida.
+ *                 example: 
+ *                  es: El lugar de nacimiento y muerte de Alberto Durero fue en...
+ *                  en: Albrecht Dürer's birthplace and place of death were in...
+ *               opciones:
+ *                 type: string
+ *                 description: Las posibles opciones a elegir de la pregunta.
+ *                 example: 
+ *                  es: Augsburgo
+ *                  en: Augsburgo
+ *               solucion:
+ *                 type: number
+ *                 description: Posicion de la respuesta correcta .
+ *                 example: 3
+ *                          
+ */
 
 module.exports = router;
 
@@ -60,6 +92,7 @@ function getPartidasByCategory(req, res, next) {
     .then((partidas) => res.json(partidas))
     .catch((err) => next(err));
 }
+
 
 function create(req, res, next) {
   console.log(req.body);

@@ -21,7 +21,7 @@ const swaggerDefinition = {
 const options = {
   swaggerDefinition,
   // Paths to files containing OpenAPI definitions
-  apis: ['./partidas/*.js','./preguntas/*.js'],
+  apis: ['./partidas/*.js','./preguntas/*.js','./partidas/categoria/*.js'],
 };
 
 
