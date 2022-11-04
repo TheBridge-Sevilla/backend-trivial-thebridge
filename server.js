@@ -21,7 +21,7 @@ const swaggerDefinition = {
 const options = {
   swaggerDefinition,
   // Paths to files containing OpenAPI definitions
-  apis: ['./partidas/*.js','./preguntas/*.js'],
+  apis: ['./partidas/*.js', './preguntas/*.js', './categorias/*.js'],
 };
 
 
@@ -47,7 +47,7 @@ app.use('/jugador', require('./jugador/jugador.controller'));
 // set port, listen for requests
 const port = process.env.NODE_ENV === 'DEV' ? (process.env.PORT || 80) : 4000;
 const server = app.listen(port, function () {
-    console.log('Server listening on port ' + port);
+  console.log('Server listening on port ' + port);
 });
 
 
