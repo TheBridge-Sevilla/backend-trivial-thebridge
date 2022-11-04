@@ -57,10 +57,10 @@ router.post("/", create);
  *           schema:
  *             type: object
  *             properties:
- *               _id:
+ *               id:
  *                 type: string
  *                 description: El ID de la categoria.
- *                 example: 635102dd9ef0f77c5801cfb4
+ *                 example: 634ef53d64362d730580cd9c
  *       required: true
  *     responses:
  *       200:
@@ -72,10 +72,10 @@ router.post("/", create);
  *               items:
  *                 type: object
  *                 properties:
- *                   _id:
+ *                   id:
  *                     type: string
  *                     description: El ID de la partida.
- *                     example: 635102dd9ef0f77c5801cfb4
+ *                     example: 634ef53d64362d730580cd9c
  *                   nombre:
  *                     type: string
  *                     description: El nombre del usuario.
@@ -83,21 +83,21 @@ router.post("/", create);
  *                   categoria:
  *                     type: object
  *                     properties:
- *                       _id: 
+ *                       id: 
  *                         type: string
  *                         description: El ID de la categoría a la que hace referencia.
  *                         example: 634ef53d64362d730580cd9c
  *                       nombre:
  *                         type: object
  *                         properties:
+ *                           en:
+ *                            type: string
+ *                            description: Nombre categoría en Inglés
+ *                            example: Art
  *                           es:
  *                             type: string
  *                             description: Nombre categoría en Español
- *                             example: Deportes
- *                           en:
- *                             type: string
- *                             description: Nombre categoría en Inglés
- *                             example: Sports
+ *                             example: Arte
  *                   puntuacion:
  *                     type: integer
  *                     description: La puntuación alcanzada por el usuario.
