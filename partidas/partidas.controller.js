@@ -41,7 +41,6 @@ const partidasService = require("./partidas.service");
  *                          
  */
 router.get("/", getAll);
-//Edu
 router.post("/", create);
 /**
  * @swagger
