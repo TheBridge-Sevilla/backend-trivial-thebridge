@@ -6,11 +6,13 @@ const partidasService = require("./partidas.service");
  * @swagger
  * /partidas:
  *   get:
- *     summary: Devuelve una lista de partidas.
- *     description: Retrieve a list of users from JSONPlaceholder. Can be used to populate a list of fake users when prototyping or testing an API.
+ *     tags:
+ *       - partidas
+ *     summary: Devuelve la lista completa de partidas.
+ *     description: Devuelve la lista completa de partidas. No se utiliza en nuestro frontEnd.
  *     responses:
  *       200:
- *         description: A list of users.
+ *         description: Una lista de partidas.
  *         content:
  *           application/json:
  *             schema:
