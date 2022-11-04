@@ -11,10 +11,10 @@ const categoriasService = require("./categorias.service");
  *     tags:
  *       - categorias
  *     summary: Devuelve una lista de categorias.
- *     description: Devuelve una lista de categorías desde un archivo JSON. Formado por nombre(es y en) e ID
+ *     description: Devuelve una lista de categorías de objetos. Cada objeto tiene un nombre, que para su internacionalización, está en español (es) y en inglés (en); y un ID.
  *     responses:
  *       200:
- *         description: Una lista de las categorias.
+ *         description: Devuelve una lista de categorías en objetos.
  *         content:
  *           application/json:
  *             schema:
