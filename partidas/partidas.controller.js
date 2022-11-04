@@ -126,6 +126,7 @@ function getPartidasByCategory(req, res, next) {
     .catch((err) => next(err));
 }
 
+
 function create(req, res, next) {
   console.log(req.body);
 
