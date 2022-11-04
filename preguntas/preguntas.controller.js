@@ -19,10 +19,10 @@ router.post('/categoria', getPreguntasByCategory)
  *   post:
  *     tags:
  *     - preguntas
- *     summary: Devuelve una lista de preguntas filtrada por la categoria seleccionada.
+ *     summary: Devuelve una lista de preguntas filtrada por la categoria enviada.
  *     operationId: categoria._id
  *     requestBody:
- *       description: Envia el ID de la pregunta seleccionada
+ *       description: Envia el ID de la categoria seleccionada
  *       content:
  *         application/json:
  *           schema:
