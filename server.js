@@ -42,7 +42,6 @@ app.use('/docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 app.use('/preguntas', require('./preguntas/preguntas.controller'));
 app.use('/partidas', require('./partidas/partidas.controller'));
 app.use('/categorias', require('./categorias/categorias.controller'));
-app.use('/jugador', require('./jugador/jugador.controller'));
 
 // set port, listen for requests
 const port = process.env.NODE_ENV === 'DEV' ? (process.env.PORT || 80) : 4000;
