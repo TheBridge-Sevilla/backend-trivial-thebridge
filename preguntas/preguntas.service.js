@@ -2,7 +2,7 @@ const db = require("../_helpers/db");
 const Pregunta = db.Pregunta;
 const Categoria = db.Categorias;
 
-const ObjectId = require('mongodb').ObjectId;
+const ObjectId = require("mongodb").ObjectId;
 
 module.exports = {
   getAll,
@@ -19,7 +19,6 @@ async function create(body) {
   return await pregunta.save();
 }
 
-async function getPreguntasByCategory (body) {
-  const categoria = await Categoria.findById(body.id)
-  return await Pregunta.find({ categoria })
+async function getPreguntasByCategory(body) {
+  return await Pregunta.aggregate([{ $match: { categoria: ObjectId(body) } },{ $sample: { size:  parseInt(process.env.NUMERO_PREGUNTAS)}}])
 }
