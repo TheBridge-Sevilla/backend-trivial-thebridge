@@ -25,9 +25,6 @@ async function getPartidasByCategory(body) {
 }
 
 async function getPartidasById(body) {
-  const usuario = await Partidas.find({idUsuario: body.id}).populate('categoria').limit(5);
-  console.log()
+  const usuario = await Partidas.find({idUsuario: body.id}).populate('categoria').limit(5).sort({fecha: -1});
   return usuario
 }
-
-
