@@ -6,6 +6,7 @@ module.exports = {
   getAll,
   create,
   getPartidasByCategory,
+  getPartidasById,
 };
 
 async function getAll() {
@@ -22,4 +23,11 @@ async function getPartidasByCategory(body) {
   console.log("categoriaID",categoriaID)
   return await Partidas.find({ categoria: categoriaID }).populate('categoria').limit(5).sort({puntuacion: -1});
 }
+
+async function getPartidasById(body) {
+  const usuario = await Partidas.find({idUsuario: body.id}).populate('categoria').limit(5);
+  console.log()
+  return usuario
+}
+
 
