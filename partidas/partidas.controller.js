@@ -43,6 +43,7 @@ const partidasService = require("./partidas.service");
 router.get("/", getAll);
 router.post("/", create);
 router.post("/categoria", getPartidasByCategory);
+router.post("/usuario", getPartidasById);
 
 module.exports = router;
 
@@ -57,6 +58,14 @@ function getPartidasByCategory(req, res, next) {
   console.log("get-partida", req.body);
   partidasService
     .getPartidasByCategory(req.body)
+    .then((partidas) => res.json(partidas))
+    .catch((err) => next(err));
+}
+
+function getPartidasById(req, res, next) {
+  console.log("get-partida-usuario", req.body);
+  partidasService
+    .getPartidasById(req.body)
     .then((partidas) => res.json(partidas))
     .catch((err) => next(err));
 }
