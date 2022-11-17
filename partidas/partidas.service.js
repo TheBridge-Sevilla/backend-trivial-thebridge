@@ -21,7 +21,7 @@ async function create(body) {
 async function getPartidasByCategory(body) {
   const categoriaID = await Categorias.findById(body.id)
   console.log("categoriaID",categoriaID)
-  return await Partidas.find({ categoria: categoriaID }).populate('categoria').limit(5).sort({puntuacion: -1});
+  return await Partidas.find({ categoria: categoriaID }).populate('categoria').sort({puntuacion: -1, fecha: -1}).limit(30);
 }
 
 async function getPartidasById(body) {
