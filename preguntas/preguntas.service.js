@@ -50,6 +50,7 @@ async function getPreguntasByCategory(body) {
   //Generamos una nueva partida en nuestra base de datos para obtener el id para poder añadirle la puntuación más tarde
   let generarPartida = new Partidas(inicioPartida);
   generarPartida.save();
+
   //Creamos un nuevo objeto con el id de partida para poder actualizarla al finalizar la partida
   let datosPartida = {
     id: generarPartida._id,
@@ -64,9 +65,13 @@ async function getPreguntasByCategory(body) {
 
 async function getRespuestasPreguntas(body) {
   let obtenerRespuesta = await Pregunta.find({ _id: ObjectId(body.id) });
+  let partidaActual = await Partidas.find( {_id: ObjectId(body.partida)} )
+  partidaActual[0].seguimiento.comprobacion.push(obtenerRespuesta[0].solucion)
+  //partidaActual.save();
 
   let respuesta =
     obtenerRespuesta[0].solucion === body.respuesta ? true : false;
-
+    
+console.log(partidaActual)
   return respuesta;
 }
