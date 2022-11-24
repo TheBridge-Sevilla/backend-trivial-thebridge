@@ -7,6 +7,8 @@ var he = require("he");
 const authKey = process.env.DEEPL_API_KEY;
 const translator = new deepl.Translator(authKey);
 
+
+for(let vueltas=0; vueltas<20; vueltas++){
 let categoriaID = {};
 Categoria.find()
   .then((categoriaMongo) => {
@@ -78,4 +80,6 @@ async function comprobarPregunta(tituloPregunta) {
   let preguntaRepetida = await Pregunta.find({ pregunta: tituloPregunta });
   // Si es true la pregunta está repetida
   return preguntaRepetida.length > 0 ? true : false;
+}
+
 }
