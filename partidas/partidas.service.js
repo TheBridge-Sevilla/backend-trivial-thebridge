@@ -21,11 +21,11 @@ async function create(body) {
 async function getPartidasByCategory(body) {
   const categoriaID = await Categorias.findById(body.id)
   console.log("categoriaID",categoriaID)
-  return await Partidas.find({ categoria: categoriaID }).populate('categoria').limit(5).sort({puntuacion: -1});
+  return await Partidas.find({ categoria: categoriaID }).populate('categoria').sort({puntuacion: -1, fecha: -1}).limit(30);
 }
 
 async function getPartidasById(body) {
-  const usuario = await Partidas.find({idUsuario: body.id}).populate('categoria').limit(5);
+  const usuario = await Partidas.find({idUsuario: body.id}).populate('categoria').sort({fecha: -1}).limit(30);
   return usuario
 }
 
