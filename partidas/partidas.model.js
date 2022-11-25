@@ -7,7 +7,6 @@ const schema = new Schema({
   categoria: { type: Schema.ObjectId, ref: "Categoria" },
   puntuacion: Number,
   fecha: Date,
-  seguimiento: { pregunta: [{ type: Schema.ObjectId, ref: "Categoria" }], comprobacion: []}
 });
 
 module.exports = mongoose.model("Partida", schema);

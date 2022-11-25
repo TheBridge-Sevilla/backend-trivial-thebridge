@@ -1,3 +1,4 @@
+const { trusted } = require("mongoose");
 const { id } = require("translate-google/languages");
 const db = require("../_helpers/db");
 const Pregunta = db.Pregunta;
@@ -41,10 +42,6 @@ async function getPreguntasByCategory(body) {
     categoria: body.categoria,
     puntuacion: undefined,
     fecha: new Date(),
-    seguimiento: {
-      pregunta: preguntaspartidas.map((obtenerID) => obtenerID._id),
-      comprobacion: [],
-    },
   };
 
   //Generamos una nueva partida en nuestra base de datos para obtener el id para poder añadirle la puntuación más tarde
@@ -56,7 +53,11 @@ async function getPreguntasByCategory(body) {
     id: generarPartida._id,
     categoria: generarPartida.categoria,
     quiz: preguntaspartidas.map((datos) => {
-      return { pregunta: datos.pregunta, opciones: datos.opciones };
+      return {
+        id: datos._id,
+        pregunta: datos.pregunta,
+        opciones: datos.opciones,
+      };
     }),
   };
   //console.log(generarPartida)
@@ -64,14 +65,16 @@ async function getPreguntasByCategory(body) {
 }
 
 async function getRespuestasPreguntas(body) {
-  let obtenerRespuesta = await Pregunta.find({ _id: ObjectId(body.id) });
-  let partidaActual = await Partidas.find( {_id: ObjectId(body.partida)} )
-  partidaActual[0].seguimiento.comprobacion.push(obtenerRespuesta[0].solucion)
-  //partidaActual.save();
+console.log("body",body)
+  let partidaActual = await Partidas.findOne({ id: body.id });
+  let pregunta = await Pregunta.findOne({ id: body.pregunta });
+console.log("Respuesta", pregunta.solucion ,"=", body.respuesta)
+  let solucion = pregunta.solucion === body.respuesta ? true : false;
 
-  let respuesta =
-    obtenerRespuesta[0].solucion === body.respuesta ? true : false;
-    
-console.log(partidaActual)
-  return respuesta;
+  solucion ? (partidaActual.puntuacion = +1) : (partidaActual.puntuacion = +0);
+
+  partidaActual.save();
+
+  console.log("partidaActual",solucion);
+  return solucion;
 }
