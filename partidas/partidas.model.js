@@ -6,6 +6,8 @@ const schema = new Schema({
   nombre: String, //nombre del jugador
   categoria: { type: Schema.ObjectId, ref: "Categoria" },
   puntuacion: Number,
+  partida: [Number],
+  numeroPreguntas: Number,
   fecha: Date,
 });
 

@@ -1,5 +1,3 @@
-const { trusted } = require("mongoose");
-const { id } = require("translate-google/languages");
 const db = require("../_helpers/db");
 const Pregunta = db.Pregunta;
 const Partidas = db.Partidas;
@@ -36,22 +34,23 @@ async function getPreguntasByCategory(body) {
   ]);
 
   //Creamos un modelo de partida con los datos obtenidos y los id de las preguntas aleatorias
-  let inicioPartida = {
+  let inicializarPartida = {
     idUsuario: body.idUsuario, //id del usuario Firebase
     nombre: body.nombre, //nombre del jugador
     categoria: body.categoria,
     puntuacion: undefined,
+    numeroPreguntas: preguntaspartidas.length,
     fecha: new Date(),
   };
 
   //Generamos una nueva partida en nuestra base de datos para obtener el id para poder añadirle la puntuación más tarde
-  let generarPartida = new Partidas(inicioPartida);
-  generarPartida.save();
+  let partida = new Partidas(inicializarPartida);
+  partida.save();
 
   //Creamos un nuevo objeto con el id de partida para poder actualizarla al finalizar la partida
   let datosPartida = {
-    id: generarPartida._id,
-    categoria: generarPartida.categoria,
+    partidaID: partida._id,
+    categoriaID: partida.categoria,
     quiz: preguntaspartidas.map((datos) => {
       return {
         id: datos._id,
@@ -60,21 +59,18 @@ async function getPreguntasByCategory(body) {
       };
     }),
   };
-  //console.log(generarPartida)
   return datosPartida;
 }
 
 async function getRespuestasPreguntas(body) {
-console.log("body",body)
-  let partidaActual = await Partidas.findOne({ id: body.id });
+
+  let partidaActual = await Partidas.findById({ _id: body.partidaID });
   let pregunta = await Pregunta.findOne({ id: body.pregunta });
-console.log("Respuesta", pregunta.solucion ,"=", body.respuesta)
   let solucion = pregunta.solucion === body.respuesta ? true : false;
-
-  solucion ? (partidaActual.puntuacion = +1) : (partidaActual.puntuacion = +0);
-
+  solucion ? (partidaActual.partida.splice(body.indice, 0, (100/partidaActual.numeroPreguntas))) : (partidaActual.partida.splice(body.indice, 0, 0));
+ 
+  partidaActual.puntuacion = partidaActual.partida.reduce((a, b) => a + b, 0)
   partidaActual.save();
 
-  console.log("partidaActual",solucion);
   return solucion;
 }
