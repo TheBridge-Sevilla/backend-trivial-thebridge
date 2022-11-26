@@ -65,7 +65,8 @@ async function getPreguntasByCategory(body) {
 async function getRespuestasPreguntas(body) {
 
   let partidaActual = await Partidas.findById({ _id: body.partidaID });
-  let pregunta = await Pregunta.findOne({ id: body.pregunta });
+  let pregunta = await Pregunta.findOne({ _id: body.preguntaID });
+
   let solucion = pregunta.solucion === body.respuesta ? true : false;
   solucion ? (partidaActual.partida.splice(body.indice, 0, (100/partidaActual.numeroPreguntas))) : (partidaActual.partida.splice(body.indice, 0, 0));
  
