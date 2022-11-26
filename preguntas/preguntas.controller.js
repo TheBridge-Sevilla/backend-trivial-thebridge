@@ -12,6 +12,7 @@ const preguntaService = require('./preguntas.service')
 router.get('/', getAll)
 router.post('/', create)
 router.post('/categoria', getPreguntasByCategory)
+router.post('/respuesta', getRespuestasPreguntas)
 
 module.exports = router
 
@@ -23,6 +24,12 @@ function getAll (req, res, next) {
 
 function getPreguntasByCategory (req, res, next) {
   preguntaService.getPreguntasByCategory(req.body)
+    .then(preguntas => res.json(preguntas))
+    .catch(err => next(err))
+}
+
+function getRespuestasPreguntas (req, res, next) {
+  preguntaService.getRespuestasPreguntas(req.body)
     .then(preguntas => res.json(preguntas))
     .catch(err => next(err))
 }
